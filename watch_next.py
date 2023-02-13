@@ -31,3 +31,14 @@ def movie_finder(description):
 
     #Uses list comprehension to create list of the movies in the movies list and their similarity to the descrition given
     similarity_list = [Movie(movie[0], nlp(movie[1]).similarity(description_token)) for movie in movies]
+
+    #the list is now sorted
+    similarity_list.sort(reverse= True)
+
+    #the top (last) three from the list are now returned
+    top3 = similarity_list[:3]
+    return list(map(Movie.get_name, top3))
+
+file_read()
+
+print(movie_finder("dragon"))
