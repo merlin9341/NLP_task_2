@@ -4,6 +4,17 @@
 import spacy
 nlp = spacy.load("en_core_web_md")
 
+class Movie:
+    def __init__(self, name, similarity):
+        self.name = name
+        self.similarity = similarity
+
+    def get_name(self):
+        return self.name
+
+    def __lt__(self, other):
+        return self.similarity < other.similarity
+
 #A list is created to hold the movies
 movies = []
 
@@ -19,4 +30,4 @@ def movie_finder(description):
     description_token = nlp(description)
 
     #Uses list comprehension to create list of the movies in the movies list and their similarity to the descrition given
-    similarity_list = [[movie[0], nlp(movie[1]).similarity(description_token)] for movie in movies]
+    similarity_list = [Movie(movie[0], nlp(movie[1]).similarity(description_token)) for movie in movies]
